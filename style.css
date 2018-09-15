@@ -1,0 +1,100 @@
+* {
+	margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cameo-pink: #edbfc6;
+  --pardise-pink: #f0386b;
+  --pink-rasberry: #89023e;
+  --moutain-meadow: #35ce8d;
+  --polished-pine: #6ba292;
+  --jet: #333232;
+  --glitter: #cbf1fa;
+  --white: #fff;
+}
+
+html {
+  font-size: 100%;
+  font-weight: 500;
+}
+
+body {
+  line-height: 1;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--jet);
+}
+
+input[type="radio"] {
+  /* display: none; */
+}
+
+input:focus {
+  outline: none;
+}
+
+.mb-xs {
+  margin-bottom: 1rem;
+}
+
+.mb-sm {
+  margin-bottom: 2rem;
+}
+
+.mr-xs {
+  margin-right: 1rem;
+}
+
+.outer-container {
+  padding: 4rem 1rem;
+  background-image: 
+    linear-gradient(rgba(53, 164, 206,0.5), rgba(53,206,141,0.5)), 
+    url(img/world-map.jpg);
+}
+
+.inner-container {
+  width: 70rem;
+  min-height: 100vh;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--glitter);
+  opacity: 0.85;
+  text-align: center;
+}
+
+.radio-buttons-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  margin-top: 1.5rem;
+}
+
+.text-input {
+  width: 100%;
+  padding: 1rem 0;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 1.1rem;
+}
+
+.text-input:focus::placeholder {
+  color: transparent;
+}
+
+.input-label {
+  display: inline-block;
+  background-color: var(--moutain-meadow);
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+}
+
+.input-label:hover {
+  background-color: var(--polished-pine);
+  cursor: pointer;
+}
