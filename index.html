@@ -14,25 +14,26 @@
       <header class="mb-sm">
         <h1 class="heading-1 mb-xs">World countries list</h1>
         <p class="mb-xs">Total number of countries 208</p>
-        <p class="mb-xs">Countries starting with '' are 20</p>
+        <p class="mb-xs js-count-result"></p>
       </header>
     
       <section class="section-search">
+        <p class="mb-xs"> Search with:</p>
         <form name="myForm" class="search-form">
           <div class="radio-buttons-container">
-            <div class="radio-button-1 mr-xs">
+            <div class="radio-button-1">
               <input type="radio" id="starting-word" name="radioButton" value="start" onchange="switchFunc(value)">
               <label for="starting-word" class="input-label">Starting word</label>
             </div>
             
             <div class="radio-button-2">
               <input type="radio" id="any-word" name="radioButton" value="any" onchange="switchFunc(value)">
-              <label for="any-word" class="input-label">Search with any word</label>
+              <label for="any-word" class="input-label">Any word</label>
             </div>
           </div>
           
           <div class="search-field">
-            <input type="text" placeholder="Search country..." class="text-input" onkeyup="onInputChange()">
+            <input type="text" placeholder="Choose a method to search..." class="text-input" onkeyup="onInputChange()">
           </div>
         </form>
       </section>

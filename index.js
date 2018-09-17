@@ -212,7 +212,8 @@ const countries = [
 const elements = {
   textInput: document.querySelector('.text-input'),
   resultsContainer: document.querySelector('.js-results'),
-  radioButtons: document.myForm.radioButton
+  radioButtons: document.myForm.radioButton,
+  countResult: document.querySelector('.js-count-result')
 };
 
 const markup = `
@@ -234,10 +235,23 @@ const clearInnerHTML = () => {
 // Add HTML with background color and text content
 const createElement = textContentValue => {
   elements.resultsContainer.insertAdjacentHTML('afterbegin', markup);
-  document.querySelector(
-    '.js-bg-color'
-  ).style.backgroundColor = randomHexaNumberGenerator();
-  document.querySelector('.js-country-name').textContent = textContentValue;
+
+  const divEle = document.querySelector('.js-bg-color');
+  const spanEle = document.querySelector('.js-country-name');
+
+  divEle.style.backgroundColor = randomHexaNumberGenerator();
+  spanEle.textContent = textContentValue;
+};
+
+const countSearchRes = (countNum, value) => {
+  let tobe = '';
+  let singOrPlural = '';
+
+  countNum >= 0 && countNum <= 1
+    ? ((tobe = 'is'), (singOrPlural = 'country'))
+    : ((tobe = 'are'), (singOrPlural = 'countries'));
+
+  elements.countResult.textContent = `There ${tobe} ${countNum} ${singOrPlural} starting with ${value}`;
 };
 
 /**
@@ -249,20 +263,23 @@ const startingWord = () => {
   if (elements.radioButtons.value !== 'start') {
     return false;
   }
-  // Clear innerHTML
   clearInnerHTML();
 
   if (elements.textInput) {
+    let inputValue = elements.textInput.value.toUpperCase();
+    let count = 0;
+
     countries.map(currCountry => {
       let initialChar = currCountry.charAt(0).toUpperCase();
-      let inputValue = elements.textInput.value.toUpperCase();
 
       if (inputValue === initialChar) {
         createElement(currCountry);
+        count += 1;
       }
     });
+    countSearchRes(count, inputValue);
   }
-}
+};
 
 /**
  * SEARCH WITH ANY WORD
@@ -273,38 +290,51 @@ const anyWord = () => {
   if (elements.radioButtons.value !== 'any') {
     return false;
   }
-  // Clear innerHTML
   clearInnerHTML();
 
-  let inputValue = elements.textInput.value;
-
   if (elements.textInput) {
-    for (let index = 0; index < countries.length; index++) {
-      let partOfCountryStr = countries[index].substring(0, inputValue.length);
+    let inputValue = elements.textInput.value.toUpperCase();
+    let count = 0;
 
-      if (partOfCountryStr.toUpperCase() == inputValue.toUpperCase()) {
-        createElement(countries[index]);
+    countries.map(currCountry => {
+      let partOfCountryStr = currCountry.substring(0, inputValue.length);
+
+      if (partOfCountryStr.toUpperCase() == inputValue) {
+        createElement(currCountry);
+        count += 1;
       }
-    }
+    });
+
+    countSearchRes(count, inputValue);
+
+    // for (let index = 0; index < countries.length; index++) {
+    //   let partOfCountryStr = countries[index].substring(0, inputValue.length);
+
+    //   if (partOfCountryStr.toUpperCase() == inputValue.toUpperCase()) {
+    //     createElement(countries[index]);
+    //   }
+    // }
   }
-}
+};
 
 /**
  * CHANGE FUNCTION WITH RADIO BUTTON
  */
 
 const switchFunc = value => {
-  // Clear input field
+  // Clear
   elements.textInput.value = '';
+  clearInnerHTML();
+
   // Set maxlength for input field
   if (value === 'start') {
     elements.textInput.maxLength = 1;
   } else if (value === 'any') {
     elements.textInput.maxLength = 524288;
   }
-}
+};
 
 const onInputChange = () => {
   startingWord();
   anyWord();
-}
+};
