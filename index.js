@@ -222,9 +222,25 @@ const markup = `
   </div>
 `;
 
+const getRandomInt = () => {
+  return Math.floor(Math.random() * 255) + 1;
+};
+
 // Generate random hexadecimal color
 const randomHexaNumberGenerator = () => {
-  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  //return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  let hexColor;
+  const randomColor = '#';
+  let red = getRandomInt();
+  let green = getRandomInt();
+  let blue = getRandomInt();
+
+  //store the random hex Color value after converting the rgb values to hexadecimal
+  hexColor = ((1 << 24) + (red << 16) + (green << 8) + blue)
+    .toString(16)
+    .slice(1);
+
+  return randomColor + hexColor;
 };
 
 // Clear HTML
@@ -243,6 +259,7 @@ const createElement = textContentValue => {
   spanEle.textContent = textContentValue;
 };
 
+// Ddisplay a nummer of countries match search input
 const countSearchRes = (countNum, value) => {
   let tobe = '';
   let singOrPlural = '';
