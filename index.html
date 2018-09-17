@@ -21,23 +21,23 @@
         <form name="myForm" class="search-form">
           <div class="radio-buttons-container">
             <div class="radio-button-1 mr-xs">
-              <input type="radio" id="starting-word" name="radioButton" maxlength="1" checked>
+              <input type="radio" id="starting-word" name="radioButton" value="start" onchange="switchFunc(value)">
               <label for="starting-word" class="input-label">Starting word</label>
             </div>
             
             <div class="radio-button-2">
-              <input type="radio" id="any-word" name="radioButton">
+              <input type="radio" id="any-word" name="radioButton" value="any" onchange="switchFunc(value)">
               <label for="any-word" class="input-label">Search with any word</label>
             </div>
           </div>
           
           <div class="search-field">
-            <input type="text" placeholder="Search country..." class="text-input">
+            <input type="text" placeholder="Search country..." class="text-input" onkeyup="onInputChange()">
           </div>
         </form>
       </section>
     
-    
+      <section class="js-results countries"></section>
     </div>
   </div>
   <script src="index.js"></script>

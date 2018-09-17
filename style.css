@@ -28,7 +28,7 @@ body {
 }
 
 input[type="radio"] {
-  /* display: none; */
+  display: none;
 }
 
 input:focus {
@@ -97,4 +97,18 @@ input:focus {
 .input-label:hover {
   background-color: var(--polished-pine);
   cursor: pointer;
+}
+
+.countries {
+  margin-top: 2rem;
+}
+
+.country {
+  margin-top: 5px;
+  padding: 2.5rem 2rem;
+  font-size: 1.2rem;
+}
+
+.text-color {
+  mix-blend-mode: color-burn;
 }

@@ -209,36 +209,102 @@ const countries = [
   'Zimbabwe'
 ];
 
+const elements = {
+  textInput: document.querySelector('.text-input'),
+  resultsContainer: document.querySelector('.js-results'),
+  radioButtons: document.myForm.radioButton
+};
+
+const markup = `
+  <div class="js-bg-color country">
+    <span class="js-country-name text-color"></span>
+  </div>
+`;
+
+// Generate random hexadecimal color
+const randomHexaNumberGenerator = () => {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+};
+
+// Clear HTML
+const clearInnerHTML = () => {
+  elements.resultsContainer.innerHTML = ' ';
+};
+
+// Add HTML with background color and text content
+const createElement = textContentValue => {
+  elements.resultsContainer.insertAdjacentHTML('afterbegin', markup);
+  document.querySelector(
+    '.js-bg-color'
+  ).style.backgroundColor = randomHexaNumberGenerator();
+  document.querySelector('.js-country-name').textContent = textContentValue;
+};
+
 /**
  * SEARCH WITH STARTING WORD
  */
 
-const initialChar = arr => {
-  const initialCharArr = arr.map(currValue =>
-    currValue.charAt(0).toUpperCase()
-  );
-  return initialCharArr;
-};
+const startingWord = () => {
+  // If NOT radio button with value="start", don't run this function
+  if (elements.radioButtons.value !== 'start') {
+    return false;
+  }
+  // Clear innerHTML
+  clearInnerHTML();
 
-function startingWord() {
-  console.log('Starting word');
-}
+  if (elements.textInput) {
+    countries.map(currCountry => {
+      let initialChar = currCountry.charAt(0).toUpperCase();
+      let inputValue = elements.textInput.value.toUpperCase();
 
-function anyWord() {
-  console.log('Any word');
-}
-
-const radioButtonOnChange = () => {
-  const radioButtons = document.myForm.radioButton;
-
-  radioButtons.forEach(button => {
-    button.addEventListener('change', () => {
-      if (button.value === 'on' && button.id === 'starting-word') {
-        startingWord();
-      } else if (button.value === 'on' && button.id === 'any-word') {
-        anyWord();
+      if (inputValue === initialChar) {
+        createElement(currCountry);
       }
     });
-  });
-};
-radioButtonOnChange();
+  }
+}
+
+/**
+ * SEARCH WITH ANY WORD
+ */
+
+const anyWord = () => {
+  // If NOT radio button with value="any", don't run this function
+  if (elements.radioButtons.value !== 'any') {
+    return false;
+  }
+  // Clear innerHTML
+  clearInnerHTML();
+
+  let inputValue = elements.textInput.value;
+
+  if (elements.textInput) {
+    for (let index = 0; index < countries.length; index++) {
+      let partOfCountryStr = countries[index].substring(0, inputValue.length);
+
+      if (partOfCountryStr.toUpperCase() == inputValue.toUpperCase()) {
+        createElement(countries[index]);
+      }
+    }
+  }
+}
+
+/**
+ * CHANGE FUNCTION WITH RADIO BUTTON
+ */
+
+const switchFunc = value => {
+  // Clear input field
+  elements.textInput.value = '';
+  // Set maxlength for input field
+  if (value === 'start') {
+    elements.textInput.maxLength = 1;
+  } else if (value === 'any') {
+    elements.textInput.maxLength = 524288;
+  }
+}
+
+const onInputChange = () => {
+  startingWord();
+  anyWord();
+}
